@@ -1,0 +1,22 @@
+{% extends  'base.html'%}
+{%load bootstrap4%}
+
+{% block content %}
+
+<div class="container">
+    <h2>My Cards</h2>
+
+    <a class="btn btn-primary" href="{% url 'post' category=category.id %}">Add card</a>
+
+    {%for card in cards%}
+    <ul>
+        <li>{{card.title}}</li>
+    </ul>
+    {%endfor%}
+
+
+
+</div>
+
+
+{%endblock%}
