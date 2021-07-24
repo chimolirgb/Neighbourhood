@@ -4,13 +4,13 @@
 {% block content %}
 
 <div class="container">
-    <h2>My Cards</h2>
+    <h2>My Neighbourhood</h2>
 
-    <a class="btn btn-primary" href="{% url 'post' category=category.id %}">Add card</a>
+    <a class="btn btn-primary" href="{% url 'post' category=category.id %}">Add Neighbourhood</a>
 
-    {%for card in cards%}
+    {%for neighbour in neighbourhood%}
     <ul>
-        <li>{{card.title}}</li>
+        <li>{{neighbour.title}}</li>
     </ul>
     {%endfor%}
 
