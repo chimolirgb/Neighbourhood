@@ -12,6 +12,11 @@ urlpatterns=[
     path(r'^api/profiles/$', views.ProfileList.as_view()),
 
     path('category/',views.category,name='category'),
+    #path(r'^new/hood$', views.new_hood, name='new-hood'),
+    path(r'^hoods/new/post/(\d+)$', views.post_new, name='new-post'),
+    #path(r'^map$', views.maps, name='maps'),
+    path(r'^hoods/new/business/(\d+)$',views.post_business, name='new-business'),
+    path(r'^hoods/(\d+)',views.hoods,name='hoods'),
 
 ]
 if settings.DEBUG:

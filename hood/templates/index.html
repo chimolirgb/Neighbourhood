@@ -11,37 +11,37 @@
 <div class="container">
   <h1 class="text-center mt-5">Welcome to the Neighbourhood Check-In Application</h1>
 
-  {%for category in categories%}
+  {%for hood in hoods%}
   <div class="accordion" id="accordionExample">
     <div class="card mt-3">
-      <div class="card-header d-flex justify-content-between " id="{{category.id}}">
+      <div class="card-header d-flex justify-content-between " id="{{hood.id}}">
         <h2 class="mb-0">
           <button
             class="btn  btn-outline-dark text-left"
             type="button"
             data-toggle="collapse"
-            data-target="#{{category}}"
+            data-target="#{{hood}}"
             aria-expanded="true"
-            aria-controls="{{category}}"
+            aria-controls="{{hood}}"
           >
-            {{category.name}}
+            {{hood.name}}
           </button>
         </h2>
         <h2 class="mb-0">
-      <a href="{%url 'cards_list' category.id%}" class="btn btn-outline-success">
+      <a href="{%url 'hood_list' hood.id%}" class="btn btn-outline-success">
         View
       </a>
         </h2>
       </div>
 
       <div
-        id="{{category}}"
+        id="{{hood}}"
         class="collapse show"
-        aria-labelledby="{{category.id}}"
-        data-parent="#{{category}}"
+        aria-labelledby="{{hood.id}}"
+        data-parent="#{{hood}}"
       >
         <div class="card-body">
-    {{category.description}}
+    {{hood.description}}
         </div>
       </div>
     </div>

@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile,Category
+from .models import Profile,Category,Neighbourhood,Post,Business
+from .models import *
+
 
         
         
@@ -31,3 +33,18 @@ class UpdateUserProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['name', 'photo', 'bio']
+
+class HoodForm(forms.ModelForm):
+    class Meta:
+        model = Neighbourhood
+        exclude = ['admin']
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        exclude = ['user', 'neighbourhood']
+
+class BusinessForm(forms.ModelForm):
+    class Meta:
+            model = Business
+            exclude = ['neighbourhood', 'profile']
