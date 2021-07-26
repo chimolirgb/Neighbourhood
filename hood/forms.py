@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from .models import Profile,Category,Neighbourhood,Post,Business
 from .models import *
 
@@ -47,4 +48,15 @@ class PostForm(forms.ModelForm):
 class BusinessForm(forms.ModelForm):
     class Meta:
             model = Business
-            exclude = ['neighbourhood', 'profile']
+            exclude = ['neighbourhood', 'photo']
+
+class SignupForm(UserCreationForm):
+    email = forms.EmailField(max_length=200, help_text='Required')
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password1', 'password2')
+
+class EditForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['bio','photo']

@@ -1,54 +1,38 @@
 {%extends 'base.html'%}
-<!-- html -->
+
 {% block content %}
 
-<!-- Bootstrap -->
+
 {%load bootstrap4%}
-<!-- static -->
+
 {% load static%}
-<!-- content -->
+
 
 <div class="container">
   <h1 class="text-center mt-5">Welcome to the Neighbourhood Check-In Application</h1>
 
-  {%for hood in hoods%}
-  <div class="accordion" id="accordionExample">
-    <div class="card mt-3">
-      <div class="card-header d-flex justify-content-between " id="{{hood.id}}">
-        <h2 class="mb-0">
-          <button
-            class="btn  btn-outline-dark text-left"
-            type="button"
-            data-toggle="collapse"
-            data-target="#{{hood}}"
-            aria-expanded="true"
-            aria-controls="{{hood}}"
-          >
-            {{hood.name}}
-          </button>
-        </h2>
-        <h2 class="mb-0">
-      <a href="{%url 'hood_list' hood.id%}" class="btn btn-outline-success">
-        View
-      </a>
-        </h2>
-      </div>
+  <hr>  <a href="{% url 'new-hood'%}"><button class="btn btn-warning btn-sm">Create a Hood</button></a>  <hr>
+    <div class="row">
+        {% for hood in hoods%}
+            <div class="col-md-4 col-lg-4 col-sm-6 ">
+                <div class="card border-warning">
+                    <div style="text-align:center; color:#000000;" class="card-header">
+                        <h5>{{ hood.name}}</h5>
+                    </div>
+                    <div style="text-align:center;" class="card-image">
 
-      <div
-        id="{{hood}}"
-        class="collapse show"
-        aria-labelledby="{{hood.id}}"
-        data-parent="#{{hood}}"
-      >
-        <div class="card-body">
-    {{hood.description}}
-        </div>
-      </div>
+                            <img class="img-responsive" src="{{hood.image.url}}" alt="" height="200px" width="300px">
+
+                    </div>
+                    <div class="card-footer">
+                        <a href="/hoods/{{ hood.id}}"> <button class="btn btn-warning btn-sm">Join Hood &#8594;</button> </a>
+                    </div>
+                </div>
+                <br>
+            <br>
+            </div>
+
+        {% endfor%}
     </div>
-  </div>
-    {%endfor%}
-
-  </div>
-
-  {% endblock %}
 </div>
+{% endblock %}

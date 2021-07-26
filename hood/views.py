@@ -14,13 +14,16 @@ from .serializer import ProfileSerializer
 from .models import *
 import datetime as dt
 
+
 # Create your views here.
 
-def welcome(request):
-    categories = Category.objects.all()
-  
-    return render(request, 'index.html', {"categories": categories})
 
+def index(request):
+    date = dt.date.today()
+    hoods = Neighbourhood.objects.all()
+    return render(request, 'index.html',{"date":date, "hoods":hoods})
+
+    
 
 def category(request):
     if request.method == 'POST':
@@ -83,6 +86,42 @@ def hoods(request,id):
     brushs = Post.objects.filter(neighbourhood=post)
     business = Business.objects.filter(neighbourhood=post)
     return render(request,'each_hood.html',{"post":post,"date":date,"brushs":brushs, "business":business})
+
+@login_required(login_url='/accounts/login/')
+def new_hood(request,id):
+    current_user = request.user
+    profile = Profile.objects.get(user=current_user)
+    if request.method == 'POST':
+        form = Neighbourhood(request.POST, request.FILES)
+        if form.is_valid():
+            hood = form.save(commit=False)
+            hood.user = current_user
+            hood.profile = profile
+            hood.save()
+        return redirect('index')
+    else:
+        form = Neighbourhood()
+    return render(request, 'new_hood.html', {"form": form})
+
+def maps(request):
+    date = dt.date.today()
+    return render(request, 'maps.html',{"date":date})
+
+
+@login_required(login_url='/accounts/login/')
+def search_results(request):
+    if 'business' in request.GET and request.GET["business"]:
+        search_term = request.GET.get("business")
+        searched_businesses = Business.objects.filter(name=search_term)
+        message = f"{search_term}"
+        profiles=  Profile.objects.all( )
+
+        return render(request, 'search.html',{"message":message,"business": searched_businesses,'profiles':profiles})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html',{"message":message})
+
 
 def post_new(request,id):
     date = dt.date.today()

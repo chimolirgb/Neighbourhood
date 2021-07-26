@@ -46,6 +46,11 @@ class Profile(models.Model):
     def __str__(self):
         return self.name
 
+
+
+    def delete_profile(self):
+        self.delete()
+
 class Category(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(max_length=100)
